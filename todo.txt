@@ -4,6 +4,7 @@ Pane oma nimi ette, kui tegeled asjaga. Kui tehtud, kustuta rida või kirjuta "+
 - Elementide lisamine sõnastikku
 - AND, NAND, NOR, XOR, NOT elementide lisamine
 - Lisada sisendelement ja väljundelement ahelasse (staatilised by default elemendid?)
+- Kõikide vajalike elementide piltide tegemine (.png formaat)
 - Kontekstmenüü lõpetada
 - Kas väljundi arvutamine töötab?
 
