@@ -1,6 +1,5 @@
 /* main CSS fail */
-<<<<<<< HEAD
-=======
+
 body{
 	color:#FF00FF;
 	font-family:cursive;
@@ -68,7 +67,6 @@ iframe{
 	width:100%; height:250px; frameborder:0; border:0; allowfullscreen:"";
 }
 
->>>>>>> 031a0422c729a442195aab1737e456edbcd20fc6
 nav {
 	margin: 10px;
 	padding: 5px;
@@ -83,10 +81,7 @@ nav {
 nav > * {
 	margin-right: 5px;
 	margin-left: 5px;
-<<<<<<< HEAD
 
-=======
->>>>>>> 031a0422c729a442195aab1737e456edbcd20fc6
 }
 
 nav>a:hover{
