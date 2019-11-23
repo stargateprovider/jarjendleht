@@ -17,6 +17,19 @@
 	width: 75%;
 }
 
+#menu {
+	display: none;
+	position: absolute;
+	border: 1px solid black;
+}
+
+#menu > button {
+	display: block;
+	width: 100px;
+	border: 1px solid;
+	border-radius: 0;
+}
+
 input[name="sisend"] {
 	width: 75%;
 }
