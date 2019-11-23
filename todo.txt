@@ -1,0 +1,18 @@
+Pane oma nimi ette, kui tegeled asjaga. Kui tehtud, kustuta rida.
+
+- Elementide ühendamine (graafiliselt)
+- Elementide lisamine sõnastikku
+- AND, NAND, NOR, XOR, NOT elementide lisamine
+- Lisada sisendelement ja väljundelement ahelasse (staatilised by default elemendid?)
+- Kontekstmenüü lõpetada
+- Kas väljundi arvutamine töötab?
+
+- Kirjutada tutorial
+- Kirjutada wiki
+
+Kui aega jääb:
+- Veel CSSi vms
+
+- Valideerimine
+- kodu.ut lehele üleslaadimine
+- esitamine
