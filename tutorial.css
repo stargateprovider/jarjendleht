@@ -1,1 +1,30 @@
-/* main CSS fail */
+body {
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    background-color:rgb(0, 132, 255);
+}
+h1 {
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    color:rgb(0, 0, 0);
+    text-align: center;
+}
+p {
+    color:rgb(0, 0, 0);
+}
+.tekst{
+    float:left;
+    width: 50%;
+}
+.pilt{
+    float:left;
+    width: 50%;
+}
+.tekst-pildiga:after{
+    content: "";
+    display: table;
+    clear: both;
+}
+img {
+    max-width: 100%;
+    height: auto;
+    width: auto\9; /* ie8 */
+}
