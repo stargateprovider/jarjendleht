@@ -71,6 +71,6 @@ nav > * {
 }
 
 nav>a:hover{
-	background-color: lightgrey;
+	background-color: rgba(111,111,111,0.3);
 	box-shadow: 0px 0px 10px grey;
 }

@@ -1,0 +1,29 @@
+#masin {
+	display: flex;
+	flex-wrap: nowrap;
+}
+
+#masin > * {
+	height: 50%;
+	min-height: 300px;
+	border: 1px solid black;
+}
+
+#side {
+	width: 25%;
+}
+
+#canvas {
+	width: 75%;
+}
+
+input[name="sisend"] {
+	width: 75%;
+}
+
+.loogikaelement {
+	display: block;
+	width: 64px;
+	height: 64px;
+	border: 1px solid black;
+}
