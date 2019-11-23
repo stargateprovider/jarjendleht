@@ -1,4 +1,4 @@
-Pane oma nimi ette, kui tegeled asjaga. Kui tehtud, kustuta rida.
+Pane oma nimi ette, kui tegeled asjaga. Kui tehtud, kustuta rida või kirjuta "+" ("-" asemel).
 
 - Elementide ühendamine (graafiliselt)
 - Elementide lisamine sõnastikku
@@ -16,3 +16,18 @@ Kui aega jääb:
 - Valideerimine
 - kodu.ut lehele üleslaadimine
 - esitamine
+
+------
+
+Nõuded projektile:
++ Kasutada versioonihaldustarkvara Git
++ Projekt on avalikult kättesaadav repositooriumis (Github, Bitbucket vmt)
+- Valmis projekt on üleval kodu.ut.ee lehel
++ Kasutusel on HTML ja CSS
+? Leht on ehitatud puhta HTMLi ja CSSiga, pole kasutatud valmis raamistikke (bootstrap jne)
+
+Projekti wiki sisaldab:
+- Mida veebileht tutvustab või mis on selle lehe eesmärk?
+- Kes on tiimiliikmed?
+- Milline on tiimisisene tööjaotus?
+- Millised raskused esinesid? Mida õppisite?
