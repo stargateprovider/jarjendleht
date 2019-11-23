@@ -23,8 +23,10 @@ function mutus(){
 function mutus1(){
 	var a=document.getElementById("side");
 	div = a.appendChild(document.createElement("div"));
-	div.class="loogikaelement";
+	div.className="loogikaelement ui-draggable ui-draggable-handle";
 	im=div.appendChild(document.createElement("img"));
 	im.src="elemendid/or.png"
+	$(function(){$(div).draggable({grid:[32,32],snap:true});});
+	$(div).css({top:200,left:200,position:"absolute"});
 
 }
