@@ -7,6 +7,8 @@
 	<title>veebileht</title>
 	<link rel="stylesheet" type="text/css" href="main.css">
 	<link rel="stylesheet" type="text/css" href="index.css">
+	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 	<script src="main.js"></script>
 	<script src="masin.js"></script>
 </head>
@@ -16,6 +18,20 @@
 		<a href="aarivideo.html">Teemakohane Videoloeng</a>
 		<a href="tutorial.html">Tutorial</a>
 	</nav>
-	<div id="masin"></div>
+	<div id="masin">
+		<div id="side">Elemendid
+			<div class="loogikaelement"><img src="elemendid/or.png"></div>
+			<div class="loogikaelement"><img src="elemendid/or.png"></div>
+			<div class="loogikaelement"><img src="elemendid/or.png"></div>
+		</div>
+		<div id="canvas">Ahel
+			<div class="loogikaelement"><img src="elemendid/or.png"></div>
+		</div>
+	</div>
+	<form>
+		<input type="text" name="sisend" placeholder="bitijada">
+		<input type="button" name="kaivita" value="Käivita"/>
+	</form>
+	<div id="valjund"></div>
 </body>
 </html>
