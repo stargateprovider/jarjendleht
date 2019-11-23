@@ -16,12 +16,15 @@ document.addEventListener("DOMContentLoaded", function(){
 		contextmenu.style.display = "block";
 		contextmenu.style.left = x.toString() + "px";
 		contextmenu.style.top = y.toString() + "px";
+
 	}, false);
 
 	var a=document.getElementById("klaveritegija");
 	a.onclick=mutus;
 	b=document.getElementById("emme");
 	b.onclick=mutus1;
+	nupp_uhendus=document.getElementById("btn-input");
+	nupp_uhendus.onclick=uhenda;
 });
 
 function mutus(){
@@ -42,4 +45,23 @@ function mutus1(){
 	$(function(){$(div).draggable({grid:[32,32],snap:true});});
 	$(div).css({top:200,left:200,position:"absolute"});
 
+}
+function uhenda(){
+	contextmenu = document.getElementById("menu")
+	contextmenu.style.display = "none";
+	var helendus=function(event){
+		esimene=event.target;
+		esimene.style.boxShadow="0px 0px 20px #880000";
+		this.removeEventListener("click",helendus);
+		return esimene;
+	}
+	document.addEventListener("click",helendus);
+
+
+	nupp_uhendus=document.getElementById("btn-input");
+	nupp_uhendus.style.boxShadow="";
+
+}
+function connekt(a,b){
+	alert("a,b");
 }
