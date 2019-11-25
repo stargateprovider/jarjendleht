@@ -8,7 +8,7 @@ Pane oma nimi ette, kui tegeled asjaga. Kui tehtud, kustuta rida või kirjuta "+
 - Kontekstmenüü lõpetada
 - Kas väljundi arvutamine töötab?
 
-- Kirjutada tutorial
+- Kirjutada tutorial ja teha sinna js
 - Kirjutada wiki
 
 Kui aega jääb:

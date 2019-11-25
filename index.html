@@ -18,25 +18,44 @@
 		<a href="aarivideo.html">Teemakohane Videoloeng</a>
 		<a href="tutorial.html">Tutorial</a>
 	</nav>
-	<div id="masin">
-		<div id="side">Elemendid
-			<div id="emme" class="loogikaelement"><img src="elemendid/or.png"><input id="nuputegija" type="button" name="kaivita" value="+"/></div>
-			<div class="loogikaelement"><img src="elemendid/or.png"><input id="nuputegija" type="button" name="kaivita" value="+"/></div>
-			<div class="loogikaelement"><img src="elemendid/or.png"><input id="nuputegija" type="button" name="kaivita" value="+"/></div>
-
-		</div>
-		<div id="canvas">Ahel
-			<div class="loogikaelement" data-id="or"><img src="elemendid/or.png"></div>
-		</div>
-	</div>
+	<table id="masin">
+		<tr>
+			<th>Elemendid</th>
+			<th>Ahel</th>
+		</tr>
+		<tr>
+			<td id="side">
+				<div class="emme" data-id="or">
+					<img src="elemendid/or.png">
+					<button>+</button>
+				</div>
+				<div class="emme" data-id="and">
+					<img src="elemendid/or.png">
+					<button>+</button>
+				</div>
+				<div class="emme">
+					<img src="elemendid/or.png">
+					<button>+</button>
+				</div>
+			</td>
+			<td id="canvas">
+				<img class="sisendelement" data-id="sisend" src="elemendid/sisend.png">
+				<img class="valjundelement" data-id="valjund" src="elemendid/valjund.png">
+			</td>
+		</tr>
+	</table>
 	<div id="menu">
-		<button id="btn-input">Ühenda</button>
+		<button id="btn-input">Vali sisend</button>
 		<button id="btn-negate">Eita</button>
+		<button id="btn-remove">Eemalda</button>
 	</div>
-	<form id="sisendid">
-		<input type="text" name="sisend" placeholder="bitijada">
-		<input id="klaveritegija" type="button" name="kaivita" value="Käivita"/>
-	</form>
-	<div id="valjund"></div>
+	<ol id="sisendid">
+		<li>
+			<input type="text" name="sisend" placeholder="bitijada">
+			<button id="kaivita">Käivita</button>
+			<button id="klaveritegija">+</button>
+		</li>
+	</ol>
+	<div id="valjund">Väljund: </div>
 </body>
 </html>
