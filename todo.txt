@@ -1,7 +1,7 @@
 Pane oma nimi ette, kui tegeled asjaga. Kui tehtud, kustuta rida või kirjuta "+" ("-" asemel).
 
 - Elementide ühendamine (graafiliselt)
-- Elementide lisamine sõnastikku
++ Kevin: Elementide lisamine sõnastikku
 - AND, NAND, NOR, XOR, NOT elementide lisamine
 - Lisada sisendelement ja väljundelement ahelasse (staatilised by default elemendid?)
 - Kõikide vajalike elementide piltide tegemine (.png formaat)
