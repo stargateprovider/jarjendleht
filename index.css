@@ -5,8 +5,10 @@ table {
 
 #canvas {
 	height: 100%;
+	min-height: 205px;
 	width: 100%;
 	resize: vertical;
+	overflow-x: hidden;
 	overflow-y: auto;
 	border: 1px solid black;
 }
@@ -40,15 +42,18 @@ input[type="text"] {
 }
 
 .loogikaelement {
+	position: absolute;
+	top: 170px;
 	display: block;
 	width: 32px;
 	height: 32px;
 	border: 1px solid black;
-	font-size: 16px;
+	font-size: 15px;
 	text-align: center;
 }
 .loogikaelement[data-id="valjund"] {
-	float: right;
+	top: 170px;
+	left: 96%;
 }
 
 ol {

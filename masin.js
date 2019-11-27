@@ -1,11 +1,59 @@
 var sisendid = {};
 
-$(function() {
-	$(".loogikaelement").draggable({
-		grid: [16, 16],
-		snap: true
-	});
-});
+//Allikas: https://www.w3schools.com/HOWTO/howto_js_draggable.asp
+function makeDragable(elmnt) {
+	var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+	elmnt.onmousedown = dragMouseDown;
+
+	function dragMouseDown(e) {
+		e = e || window.event;
+		e.preventDefault();
+		// get the mouse cursor position at startup:
+		pos3 = e.clientX;
+		pos4 = e.clientY;
+		document.onmouseup = closeDragElement;
+		// call a function whenever the cursor moves:
+		document.onmousemove = elementDrag;
+	}
+
+	function elementDrag(e) {
+		e = e || window.event;
+		e.preventDefault();
+		// calculate the new cursor position:
+		pos1 = pos3 - e.clientX;
+		pos2 = pos4 - e.clientY;
+		pos3 = e.clientX;
+		pos4 = e.clientY;
+		// set the element's new position:
+		newX = elmnt.offsetLeft - pos1;
+		newY = elmnt.offsetTop - pos2;
+
+		parentSize = elmnt.parentNode.getBoundingClientRect();
+		elemSize = elmnt.getBoundingClientRect();
+		// Kui raamist väljas:
+		if (newX < parentSize.left){
+			elmnt.style.left = parentSize.left + "px";
+		}else if (newX + elemSize.width > parentSize.right){
+			elmnt.style.left = parentSize.right - elemSize.width + "px";
+		}else{
+			elmnt.style.left = newX + "px";
+		}
+
+		if (newY < parentSize.top){
+			elmnt.style.top = parentSize.top + "px";
+		}else if (newY + elemSize.height > parentSize.bottom){
+			elmnt.style.top = parentSize.bottom - elemSize.height + "px";
+		}else{
+			elmnt.style.top = newY + "px";
+		}
+	}
+
+	function closeDragElement() {
+		// stop moving when mouse button is released:
+		document.onmouseup = null;
+		document.onmousemove = null;
+	}
+}
 
 
 // Main funktsioon
@@ -63,6 +111,7 @@ window.addEventListener("load", function(){
 	loogikaElemendid = document.getElementsByClassName("loogikaelement");
 	for (var i=0; i<loogikaElemendid.length; i++){
 		sisendid[loogikaElemendid[i].getAttribute("data-id")] = new Set();
+		makeDragable(loogikaElemendid[i]);
 	}
 
 	//document.getElementById("kaivita").onclick = leiaValjund;
@@ -77,24 +126,32 @@ window.addEventListener("load", function(){
 	}
 });
 
-function lisaElement(type){
-	var canvas = document.getElementById("canvas");
-	var img = canvas.appendChild(document.createElement("img"));
-	img.className = "loogikaelement";
-	img.src="elemendid/" + type + ".png";
-	index = canvas.getElementsByClassName("loogikaelement").length.toString();
-	img.setAttribute("data-id", type+index);
-	$(function(){$(img).draggable({grid:[16,16], snap:true});});
-	$(img).css({top:50, left:100});
+function paigutaElement(index, elem, parent){
+	elem.setAttribute("data-id", "sisend"+index);
+	elem.className = "loogikaelement";
+	let posy = 170 + index*32;
+	elem.style.top = posy.toString() + "px";
+	if (posy > parent.offsetHeight){
+		parent.style.height = elem.style.top;
+	}
+	makeDragable(elem);
 
-	sisendid[img.getAttribute("data-id")] = new Set();
+	sisendid[elem.getAttribute("data-id")] = new Set();
+}
+
+function lisaElement(type){
+	let canvas = document.getElementById("canvas");
+	let img = canvas.appendChild(document.createElement("img"));
+	let index = canvas.getElementsByClassName("loogikaelement").length - 1;
+	img.src = "elemendid/" +type+ ".png";
+	paigutaElement(index, img, canvas);
 }
 
 function lisaSisend(){
 	let ol = document.getElementById("sisendid");
 	let li = document.createElement("li");
 	let input = li.appendChild(document.createElement("input"));
-	index = ol.children.length.toString();
+	let index = ol.children.length.toString();
 	input.name = "sisend"+index;
 	input.placeholder = "bitijada";
 	input.type = "text";
@@ -102,11 +159,6 @@ function lisaSisend(){
 
 	var canvas = document.getElementById("canvas");
 	var div = canvas.appendChild(document.createElement("div"));
-	div.className = "loogikaelement";
-	div.textContent = "IN" + index
-	div.setAttribute("data-id", "sisend"+index);
-	$(function(){$(div).draggable({grid:[16,16], snap:true});});
-	$(div).css({top:50, left:100});
-
-	sisendid[div.getAttribute("data-id")] = new Set();
+	div.textContent = "IN" + index;
+	paigutaElement(index, div, canvas);
 }
