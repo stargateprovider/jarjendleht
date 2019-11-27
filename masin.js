@@ -2,7 +2,7 @@ var sisendid = {};
 
 $(function() {
 	$(".loogikaelement").draggable({
-		grid: [32, 32],
+		grid: [16, 16],
 		snap: true
 	});
 });
@@ -29,10 +29,10 @@ window.addEventListener("load", function(){
 			var uhenda2 = function(event){
 				// Ühendab valitud elemendid
 				teine = event.target;
-				let onLoogikaElement = teine.className.includes("loogikaelement") || teine.className.includes("sisendelement");
-				let poleElementIse = esimene != teine;
+				let onLoogikaElemendid = esimene.className.includes("loogikaelement") && teine.className.includes("loogikaelement");
+				let poleValjund = esimene != teine && teine.getAttribute("data-id") != "valjund";
 
-				if (onLoogikaElement && poleElementIse){
+				if (onLoogikaElemendid && poleValjund){
 					teine.style.boxShadow="0px 0px 20px #880000";
 					sisendid[esimene.getAttribute("data-id")].add(teine.getAttribute("data-id"));
 					this.removeEventListener("click", uhenda2);
@@ -42,11 +42,28 @@ window.addEventListener("load", function(){
 			document.addEventListener("click", uhenda2);
 		};
 		document.getElementById("btn-input").addEventListener("click", uhenda);
+
+		var kustuta = function(event){
+			// Kustutab elemendi
+			contextmenu.style.display = "none";
+			dataId = esimene.getAttribute("data-id");
+
+			if (esimene.className.includes("loogikaelement" && dataId != "valjund")){
+				esimene.parentNode.removeChild(esimene);
+				delete sisendid[dataId];
+				for (var i=0; i<sisendid.length; i++){
+					sisendid.delete(dataId);
+				}
+				this.removeEventListener("click", kustuta);
+			}
+		};
+		document.getElementById("btn-remove").addEventListener("click", kustuta);
 	}, false);
 
-
-	sisendid[document.getElementsByClassName("sisendelement")[0].getAttribute("data-id")] = new Set();
-	sisendid[document.getElementsByClassName("valjundelement")[0].getAttribute("data-id")] = new Set();
+	loogikaElemendid = document.getElementsByClassName("loogikaelement");
+	for (var i=0; i<loogikaElemendid.length; i++){
+		sisendid[loogikaElemendid[i].getAttribute("data-id")] = new Set();
+	}
 
 	//document.getElementById("kaivita").onclick = leiaValjund;
 	var a=document.getElementById("klaveritegija");
@@ -60,14 +77,14 @@ window.addEventListener("load", function(){
 	}
 });
 
-function lisaElement(type, cls="loogikaelement"){
+function lisaElement(type){
 	var canvas = document.getElementById("canvas");
 	var img = canvas.appendChild(document.createElement("img"));
-	img.className = cls;
+	img.className = "loogikaelement";
 	img.src="elemendid/" + type + ".png";
-	index = canvas.getElementsByClassName(cls).length.toString();
+	index = canvas.getElementsByClassName("loogikaelement").length.toString();
 	img.setAttribute("data-id", type+index);
-	$(function(){$(img).draggable({grid:[32,32], snap:true});});
+	$(function(){$(img).draggable({grid:[16,16], snap:true});});
 	$(img).css({top:50, left:100});
 
 	sisendid[img.getAttribute("data-id")] = new Set();
@@ -75,11 +92,21 @@ function lisaElement(type, cls="loogikaelement"){
 
 function lisaSisend(){
 	let ol = document.getElementById("sisendid");
-	let li = ol.appendChild(document.createElement("li"));
+	let li = document.createElement("li");
 	let input = li.appendChild(document.createElement("input"));
 	index = ol.children.length.toString();
 	input.name = "sisend"+index;
 	input.placeholder = "bitijada";
 	input.type = "text";
-	lisaElement("sisend", "sisendelement");
+	ol.appendChild(li);
+
+	var canvas = document.getElementById("canvas");
+	var div = canvas.appendChild(document.createElement("div"));
+	div.className = "loogikaelement";
+	div.textContent = "IN" + index
+	div.setAttribute("data-id", "sisend"+index);
+	$(function(){$(div).draggable({grid:[16,16], snap:true});});
+	$(div).css({top:50, left:100});
+
+	sisendid[div.getAttribute("data-id")] = new Set();
 }

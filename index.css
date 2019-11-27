@@ -1,17 +1,18 @@
 table {
 	min-width: 100%;
-}
-td, tr {
-	height: 60%;
-	min-height: 400px;
-	border: 1px solid black;
+	height: 100%;
 }
 
-#side {
-	width: 25%;
-}
 #canvas {
-	width: 75%;
+	height: 100%;
+	width: 100%;
+	resize: vertical;
+	overflow-y: auto;
+	border: 1px solid black;
+}
+#side {
+	width: 20%;
+	border: 1px solid black;
 }
 
 #menu {
@@ -38,16 +39,15 @@ input[type="text"] {
 	margin: 1px;
 }
 
-.loogikaelement, .sisendelement, .valjundelement {
+.loogikaelement {
 	display: block;
-	width: 64px;
-	height: 64px;
+	width: 32px;
+	height: 32px;
 	border: 1px solid black;
+	font-size: 16px;
+	text-align: center;
 }
-.sisendelement {
-	float: left;
-}
-.valjundelement {
+.loogikaelement[data-id="valjund"] {
 	float: right;
 }
 

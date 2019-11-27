@@ -3,7 +3,7 @@ Pane oma nimi ette, kui tegeled asjaga. Kui tehtud, kustuta rida või kirjuta "+
 - Elementide ühendamine (graafiliselt)
 + Kevin: Elementide lisamine sõnastikku
 - AND, NAND, NOR, XOR, NOT elementide lisamine
-- Lisada sisendelement ja väljundelement ahelasse (staatilised by default elemendid?)
++ Kevin: Lisada sisendelement ja väljundelement ahelasse
 - Kõikide vajalike elementide piltide tegemine (.png formaat)
 - Kontekstmenüü lõpetada
 - Kas väljundi arvutamine töötab?
