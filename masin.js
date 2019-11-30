@@ -243,20 +243,37 @@ function lisaSisend(){
 
 function leiaValjund(event,a="valjund"){
 	var inputs=Array.from(sisendid[a]);
-	//alert(a);
-	if(a=="sisend" || a=="sisend1"){
-		return 1;
-	}
 	let results=[];
 	inputs.forEach(function (item, index) {
 		results.push(leiaValjund(undefined, item))
 	});
-	var summa=0;
-	results.forEach(function (item, index){
-		summa+=item;
-	});
-	alert(summa);
-	//if(document.getElementById(a).getAttribute("data-type") == "and"){
-	//	return
-	//}
+	if(document.querySelector("[data-id='"+a+"']").getAttribute("data-type") == "sisend"){
+		return document.querySelector("[name='"+a+"']").value;		
+	}
+	else if(document.querySelector("[data-id='"+a+"']").getAttribute("data-type") == "neg"){
+		return 1-results[0];
+	}
+	else if(document.querySelector("[data-id='"+a+"']").getAttribute("data-type") == "and"){
+		var tulemus=1;
+		results.forEach(function (item, index) {
+			if(item==0){
+				tulemus=0;
+			}
+		});
+		console.log(tulemus);
+		return tulemus;		
+	}
+	else if(document.querySelector("[data-id='"+a+"']").getAttribute("data-type") == "or"){
+		var tulemus=0;
+		results.forEach(function (item, index) {
+			if(item==1){
+				tulemus=1;
+			}
+		});
+		console.log(tulemus);
+		return tulemus;		
+	}
+	else if(document.querySelector("[data-id='"+a+"']").getAttribute("data-type") == "valjund"){
+		alert(results);		
+	}
 }
