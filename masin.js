@@ -28,12 +28,15 @@ function makeDragable(elmnt) {
 		// set the element's new position:
 		var uhendused=connect[elmnt.getAttribute("data-id")];
 		for (var i=-1;i<uhendused.length;i++){
+		/*var uhendused=connect[elmnt.getAttribute("data-id")];
+		for (var i=-1;i<uhendused.lenght;i++){
+>>>>>>> 7ac313515b1183acd1a7430e07e2dcfad14ba6ed
 			console.log("j");
 			  if (elmnt.style.left+32==uhendused[i].style.left){
 					uhendused[i].style.left=(parseInt(uhendused[i].style.left)-pos1)+"px";
 				};
 
-		};
+		};*/
 		newX = elmnt.offsetLeft - pos1;
 		newY = elmnt.offsetTop - pos2;
 
@@ -114,10 +117,16 @@ window.addEventListener("load", function(){
 				let onLoogikaElemendid = esimene.className.includes("loogikaelement") && teine.className.includes("loogikaelement");
 				let poleValjund = esimene != teine && teine.getAttribute("data-type") != "valjund";
 
-				if (onLoogikaElemendid && poleValjund){					
+				if (onLoogikaElemendid && poleValjund){
 					sisendid[esimene.getAttribute("data-id")].delete(teine.getAttribute("data-id"));
 					if (sisendid[esimene.getAttribute("data-id")]){
-						//kustutaJoon(esimene,teine);
+
+
+						var uhendused=document.querySelectorAll("[data-id="+esimene.getAttribute("data-id")+"c"+teine.getAttribute("data-id")+"]")
+
+						for(var i=0;i<uhendused.length;i++){
+							uhendused[i].style.display="none";
+						};
 						teine.style.boxShadow="";
 					}
 					this.removeEventListener("click", uhendalahti2);
@@ -198,6 +207,7 @@ function paigutaJoon(lopp,algus){
 		div.style.left=(x2+32).toString()+"px";
 		div.style.width=(x1-x2-32).toString()+"px";
 	};
+	makeDragable(div);
 }
 
 function paigutaElement(index, type, elem, parent){
