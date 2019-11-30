@@ -196,7 +196,7 @@ function lisaSisend(){
 	div.textContent = "IN" + index;
 	paigutaElement(index, "sisend", div, canvas);
 }
-<<<<<<< HEAD
+
 function leiaValjund(event,a="valjund"){
 	var inputs=Array.from(sisendid[a]);
 	//alert(a);
@@ -216,12 +216,3 @@ function leiaValjund(event,a="valjund"){
 	//	return
 	//}
 }
-=======
-
-function leiaValjund(){
-	for (var i in sisendid){
-		alert(i);
-	};
-	console.log("here", sisendid, valjund)
-}
->>>>>>> 8e94b6950c355338033cbacd3ee702095c324787
