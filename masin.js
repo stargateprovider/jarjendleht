@@ -50,8 +50,8 @@ function uhenda(){
 	contextmenu = document.getElementById("menu")
 	contextmenu.style.display = "none";
 	var helendus=function(event){
-		esimene=event.target;
-		esimene.style.boxShadow="0px 0px 20px #880000";
+		var esimene=event;
+		esimene.target.style.boxShadow="0px 0px 20px #880000";
 		this.removeEventListener("click",helendus);
 		return esimene;
 	}
