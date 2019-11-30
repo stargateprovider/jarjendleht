@@ -28,7 +28,8 @@ function makeDragable(elmnt) {
 		// set the element's new position:
 		var uhendused=connect[elmnt.getAttribute("data-id")];
 		for (let u of uhendused.entries()){
-			document.querySelectorAll("[data-id="+u[0]+"]")[0].style.display="none"
+			var a=document.querySelectorAll("[data-id="+u[0]+"]")[0];
+			a.parentNode.removeChild(a);
 			var idd=u[0].split("c");
 			paigutaJoon(document.querySelectorAll("[data-id="+idd[1]+"]")[0],document.querySelectorAll("[data-id="+idd[0]+"]")[0]);
 
