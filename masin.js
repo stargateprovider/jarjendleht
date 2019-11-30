@@ -27,7 +27,7 @@ function makeDragable(elmnt) {
 		pos4 = e.clientY;
 		// set the element's new position:
 		var uhendused=connect[elmnt.getAttribute("data-id")];
-		for (var i=-1;i<uhendused.lenght;i++){
+		for (var i=-1;i<uhendused.length;i++){
 			console.log("j");
 			  if (elmnt.style.left+32==uhendused[i].style.left){
 					uhendused[i].style.left=(parseInt(uhendused[i].style.left)-pos1)+"px";
