@@ -114,10 +114,16 @@ window.addEventListener("load", function(){
 				let onLoogikaElemendid = esimene.className.includes("loogikaelement") && teine.className.includes("loogikaelement");
 				let poleValjund = esimene != teine && teine.getAttribute("data-type") != "valjund";
 
-				if (onLoogikaElemendid && poleValjund){					
+				if (onLoogikaElemendid && poleValjund){
 					sisendid[esimene.getAttribute("data-id")].delete(teine.getAttribute("data-id"));
 					if (sisendid[esimene.getAttribute("data-id")]){
-						//kustutaJoon(esimene,teine);
+
+
+						var uhendused=document.querySelectorAll("[data-id="+esimene.getAttribute("data-id")+"c"+teine.getAttribute("data-id")+"]")
+
+						for(var i=0;i<uhendused.length;i++){
+							uhendused[i].style.display="none";
+						};
 						teine.style.boxShadow="";
 					}
 					this.removeEventListener("click", uhendalahti2);
