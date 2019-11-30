@@ -1,4 +1,5 @@
 var sisendid = {};
+var connect={};
 
 //Allikas: https://www.w3schools.com/HOWTO/howto_js_draggable.asp
 function makeDragable(elmnt) {
@@ -25,8 +26,18 @@ function makeDragable(elmnt) {
 		pos3 = e.clientX;
 		pos4 = e.clientY;
 		// set the element's new position:
+		var uhendused=connect[elmnt.getAttribute("data-id")];
+		for (var i=-1;i<uhendused.lenght;i++){
+			console.log("j");
+			  if (elmnt.style.left+32==uhendused[i].style.left){
+					uhendused[i].style.left=(parseInt(uhendused[i].style.left)-pos1)+"px";
+				};
+
+		};
 		newX = elmnt.offsetLeft - pos1;
 		newY = elmnt.offsetTop - pos2;
+
+
 
 		parentSize = elmnt.parentNode.getBoundingClientRect();
 		elemSize = elmnt.getBoundingClientRect();
@@ -82,7 +93,6 @@ window.addEventListener("load", function(){
 
 				if (onLoogikaElemendid && poleValjund){
 					paigutaJoon(teine,esimene);
-					teine.style.boxShadow="0px 0px 20px #880000";
 					sisendid[esimene.getAttribute("data-id")].add(teine.getAttribute("data-id"));
 					this.removeEventListener("click", uhenda2);
 				}
@@ -111,8 +121,11 @@ window.addEventListener("load", function(){
 
 	loogikaElemendid = document.getElementsByClassName("loogikaelement");
 	for (var i=0; i<loogikaElemendid.length; i++){
+
+		connect[loogikaElemendid[i].getAttribute("data-id")]=new Set();
 		sisendid[loogikaElemendid[i].getAttribute("data-id")] = new Set();
 		makeDragable(loogikaElemendid[i]);
+
 	}
 
 	//document.getElementById("kaivita").onclick = leiaValjund;
@@ -133,9 +146,12 @@ function paigutaJoon(lopp,algus){
 	var y2=parseInt(lopp.style.top);
 	var canvas = document.getElementById("canvas");
 	var div = canvas.appendChild(document.createElement("div"));
+	div.setAttribute("data-id", algus.getAttribute("data-id")+"c"+lopp.getAttribute("data-id"));
+	connect[lopp.getAttribute("data-id")].add(div.getAttribute("data-id"));
+	connect[algus.getAttribute("data-id")].add(div.getAttribute("data-id"));
 	div.style.position="absolute";
 	if (y1>=y2){
-		div.style.borderTop="1px solid black";
+		div.style.borderTop="1px double black";
 		div.style.top=(y2+16).toString()+"px";
 		div.style.height=(y1-y2).toString()+"px";
 
@@ -155,7 +171,6 @@ function paigutaJoon(lopp,algus){
 		div.style.left=(x2+32).toString()+"px";
 		div.style.width=(x1-x2-32).toString()+"px";
 	};
-	console.log(div)
 }
 
 function paigutaElement(index, elem, parent){
@@ -167,6 +182,8 @@ function paigutaElement(index, elem, parent){
 		parent.style.height = elem.style.top;
 	}
 	makeDragable(elem);
+	connect[elem.getAttribute("data-id")]=new Set();
+
 
 	sisendid[elem.getAttribute("data-id")] = new Set();
 }
