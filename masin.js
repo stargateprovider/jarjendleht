@@ -123,7 +123,9 @@ window.addEventListener("load", function(){
 						var uhendused=document.querySelectorAll("[data-id="+esimene.getAttribute("data-id")+"c"+teine.getAttribute("data-id")+"]");
 
 						for(var i=0;i<uhendused.length;i++){
-							uhendused[i].style.display="none";
+							uhendused[i].parentNode.removeChild(uhendused[i]);
+							connect[esimene.getAttribute("data-id")].delete(esimene.getAttribute("data-id")+"c"+teine.getAttribute("data-id"));
+							connect[teine.getAttribute("data-id")].delete(esimene.getAttribute("data-id")+"c"+teine.getAttribute("data-id"));
 						};
 						teine.style.boxShadow="";
 					}
@@ -185,26 +187,27 @@ function paigutaJoon(lopp,algus){
 	connect[algus.getAttribute("data-id")].add(div.getAttribute("data-id"));
 	div.style.position="absolute";
 	if (y1>=y2){
-		div.style.borderTop="1px double black";
+		div.style.borderTop="1px dashed black";
 		div.style.top=(y2+16).toString()+"px";
 		div.style.height=(y1-y2).toString()+"px";
 
 	};
 	if(y2>y1){
-		div.style.borderBottom="1px solid black";
+		div.style.borderBottom="1px dashed black";
 		div.style.top=(y1).toString()+"px";
 		div.style.height=(y2-y1+16).toString()+"px";
 	};
 	if (x2>=x1){
-		div.style.borderLeft="1px solid black";
+		div.style.borderLeft="1px dashed black";
 		div.style.left=(x1+32).toString()+"px";
 		div.style.width=(x2-x1-32).toString()+"px";
 	};
 	if (x1>x2){
-		div.style.borderRight="1px solid black";
+		div.style.borderRight="1px dashed black";
 		div.style.left=(x2+32).toString()+"px";
 		div.style.width=(x1-x2-32).toString()+"px";
 	};
+	div.style.pointerEvents="none";
 }
 
 function paigutaElement(index, type, elem, parent){
@@ -249,20 +252,53 @@ function lisaSisend(){
 
 function leiaValjund(event,a="valjund"){
 	var inputs=Array.from(sisendid[a]);
-	//alert(a);
-	if(a=="sisend" || a=="sisend1"){
-		return 1;
-	}
 	let results=[];
 	inputs.forEach(function (item, index) {
 		results.push(leiaValjund(undefined, item))
 	});
-	var summa=0;
-	results.forEach(function (item, index){
-		summa+=item;
-	});
-	alert(summa);
-	//if(document.getElementById(a).getAttribute("data-type") == "and"){
-	//	return
-	//}
+	if(document.querySelector("[data-id='"+a+"']").getAttribute("data-type") == "sisend"){
+		return document.querySelector("[name='"+a+"']").value;
+	}
+	else if(document.querySelector("[data-id='"+a+"']").getAttribute("data-type") == "neg"){
+		return 1-results[0];
+	}
+	else if(document.querySelector("[data-id='"+a+"']").getAttribute("data-type") == "and"){
+		var tulemus=1;
+		results.forEach(function (item, index) {
+			if(item==0){
+				tulemus=0;
+			}
+		});
+		return tulemus;
+	}
+	else if(document.querySelector("[data-id='"+a+"']").getAttribute("data-type") == "or"){
+		var tulemus=0;
+		results.forEach(function (item, index) {
+			if(item==1){
+				tulemus=1;
+			}
+		});
+		return tulemus;
+	}
+	else if(document.querySelector("[data-id='"+a+"']").getAttribute("data-type") == "nand"){
+		var tulemus=0;
+		results.forEach(function (item, index) {
+			if(item==0){
+				tulemus=1;
+			}
+		});
+		return tulemus;		
+	}
+	else if(document.querySelector("[data-id='"+a+"']").getAttribute("data-type") == "xor"){
+		if(results[0]==results[1]){
+			return 0;
+		}
+		else{
+			return 1;
+		}
+		return tulemus;		
+	}
+	else if(document.querySelector("[data-id='"+a+"']").getAttribute("data-type") == "valjund"){
+		document.getElementById("valjund").innerHTML=results;		
+	}
 }
