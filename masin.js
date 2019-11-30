@@ -257,7 +257,7 @@ function leiaValjund(event,a="valjund"){
 		results.push(leiaValjund(undefined, item))
 	});
 	if(document.querySelector("[data-id='"+a+"']").getAttribute("data-type") == "sisend"){
-		return document.querySelector("[name='"+a+"']").value;		
+		return document.querySelector("[name='"+a+"']").value;
 	}
 	else if(document.querySelector("[data-id='"+a+"']").getAttribute("data-type") == "neg"){
 		return 1-results[0];
@@ -270,7 +270,7 @@ function leiaValjund(event,a="valjund"){
 			}
 		});
 		console.log(tulemus);
-		return tulemus;		
+		return tulemus;
 	}
 	else if(document.querySelector("[data-id='"+a+"']").getAttribute("data-type") == "or"){
 		var tulemus=0;
@@ -280,9 +280,9 @@ function leiaValjund(event,a="valjund"){
 			}
 		});
 		console.log(tulemus);
-		return tulemus;		
+		return tulemus;
 	}
 	else if(document.querySelector("[data-id='"+a+"']").getAttribute("data-type") == "valjund"){
-		alert(results);		
+		document.getElementById("valjund").innerHTML=results;		
 	}
 }
