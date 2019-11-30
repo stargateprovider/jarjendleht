@@ -123,7 +123,9 @@ window.addEventListener("load", function(){
 						var uhendused=document.querySelectorAll("[data-id="+esimene.getAttribute("data-id")+"c"+teine.getAttribute("data-id")+"]");
 
 						for(var i=0;i<uhendused.length;i++){
-							uhendused[i].style.display="none";
+							uhendused[i].parentNode.removeChild(uhendused[i]);
+							connect[esimene.getAttribute("data-id")].delete(esimene.getAttribute("data-id")+"c"+teine.getAttribute("data-id"));
+							connect[teine.getAttribute("data-id")].delete(esimene.getAttribute("data-id")+"c"+teine.getAttribute("data-id"));
 						};
 						teine.style.boxShadow="";
 					}
