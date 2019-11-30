@@ -43,6 +43,7 @@ input[type="text"] {
 
 .loogikaelement {
 	position: absolute;
+	background-color: white;
 	top: 170px;
 	display: block;
 	width: 32px;

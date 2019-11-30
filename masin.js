@@ -128,7 +128,8 @@ window.addEventListener("load", function(){
 
 	}
 
-	//document.getElementById("kaivita").onclick = leiaValjund;
+	var b=document.getElementById("kaivita");
+	b.onclick = leiaValjund;
 	var a=document.getElementById("klaveritegija");
 	a.onclick=lisaSisend;
 
@@ -173,8 +174,9 @@ function paigutaJoon(lopp,algus){
 	};
 }
 
-function paigutaElement(index, elem, parent){
-	elem.setAttribute("data-id", "sisend"+index);
+function paigutaElement(index, type, elem, parent){
+	elem.setAttribute("data-id", type+index);
+	elem.setAttribute("data-type", type);
 	elem.className = "loogikaelement";
 	let posy = 170 + index*32;
 	elem.style.top = posy.toString() + "px";
@@ -193,7 +195,7 @@ function lisaElement(type){
 	let img = canvas.appendChild(document.createElement("img"));
 	let index = canvas.getElementsByClassName("loogikaelement").length - 1;
 	img.src = "elemendid/" +type+ ".png";
-	paigutaElement(index, img, canvas);
+	paigutaElement(index, type, img, canvas);
 }
 
 function lisaSisend(){
@@ -209,5 +211,25 @@ function lisaSisend(){
 	var canvas = document.getElementById("canvas");
 	var div = canvas.appendChild(document.createElement("div"));
 	div.textContent = "IN" + index;
-	paigutaElement(index, div, canvas);
+	paigutaElement(index, "sisend", div, canvas);
+}
+
+function leiaValjund(event,a="valjund"){
+	var inputs=Array.from(sisendid[a]);
+	//alert(a);
+	if(a=="sisend" || a=="sisend1"){
+		return 1;
+	}
+	let results=[];
+	inputs.forEach(function (item, index) {
+		results.push(leiaValjund(undefined, item))
+	});
+	var summa=0;
+	results.forEach(function (item, index){
+		summa+=item;
+	});
+	alert(summa);
+	//if(document.getElementById(a).getAttribute("data-type") == "and"){
+	//	return
+	//}
 }
