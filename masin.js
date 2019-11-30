@@ -81,6 +81,7 @@ window.addEventListener("load", function(){
 		contextmenu.style.left = x.toString() + "px";
 		contextmenu.style.top = y.toString() + "px";
 
+		// Elementide ühendamine
 		var uhenda = function(event){
 			// Alustab elementide ühendamise
 			contextmenu.style.display = "none";
@@ -89,7 +90,7 @@ window.addEventListener("load", function(){
 				// Ühendab valitud elemendid
 				teine = event.target;
 				let onLoogikaElemendid = esimene.className.includes("loogikaelement") && teine.className.includes("loogikaelement");
-				let poleValjund = esimene != teine && teine.getAttribute("data-id") != "valjund";
+				let poleValjund = esimene != teine && teine.getAttribute("data-type") != "valjund";
 
 				if (onLoogikaElemendid && poleValjund){
 					paigutaJoon(teine,esimene);
@@ -100,14 +101,39 @@ window.addEventListener("load", function(){
 			this.removeEventListener("click", uhenda);
 			document.addEventListener("click", uhenda2);
 		};
-		document.getElementById("btn-input").addEventListener("click", uhenda);
+		document.getElementById("btn-input-add").addEventListener("click", uhenda);
 
+		// Elementide lahti ühendamine
+		var uhendalahti = function(event){
+			// Alustab elementide lahtiühendamise
+			contextmenu.style.display = "none";
+
+			var uhendalahti2 = function(event){
+				// Ühendab lahti valitud elemendid
+				teine = event.target;
+				let onLoogikaElemendid = esimene.className.includes("loogikaelement") && teine.className.includes("loogikaelement");
+				let poleValjund = esimene != teine && teine.getAttribute("data-type") != "valjund";
+
+				if (onLoogikaElemendid && poleValjund){					
+					sisendid[esimene.getAttribute("data-id")].delete(teine.getAttribute("data-id"));
+					if (sisendid[esimene.getAttribute("data-id")]){
+						//kustutaJoon(esimene,teine);
+						teine.style.boxShadow="";
+					}
+					this.removeEventListener("click", uhendalahti2);
+				}
+			}
+			this.removeEventListener("click", uhendalahti);
+			document.addEventListener("click", uhendalahti2);
+		};
+		document.getElementById("btn-input-remove").addEventListener("click", uhendalahti);
+
+		// Elementide kustutamine
 		var kustuta = function(event){
-			// Kustutab elemendi
 			contextmenu.style.display = "none";
 			dataId = esimene.getAttribute("data-id");
 
-			if (esimene.className.includes("loogikaelement" && dataId != "valjund")){
+			if (esimene.className.includes("loogikaelement") && dataId != "valjund"){
 				esimene.parentNode.removeChild(esimene);
 				delete sisendid[dataId];
 				for (var i=0; i<sisendid.length; i++){
