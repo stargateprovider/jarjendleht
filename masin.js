@@ -27,16 +27,13 @@ function makeDragable(elmnt) {
 		pos4 = e.clientY;
 		// set the element's new position:
 		var uhendused=connect[elmnt.getAttribute("data-id")];
-		for (var i=-1;i<uhendused.length;i++){
-		/*var uhendused=connect[elmnt.getAttribute("data-id")];
-		for (var i=-1;i<uhendused.lenght;i++){
->>>>>>> 7ac313515b1183acd1a7430e07e2dcfad14ba6ed
-			console.log("j");
-			  if (elmnt.style.left+32==uhendused[i].style.left){
-					uhendused[i].style.left=(parseInt(uhendused[i].style.left)-pos1)+"px";
-				};
+		for (let u of uhendused.entries()){
+			document.querySelectorAll("[data-id="+u[0]+"]")[0].style.display="none"
+			var idd=u[0].split("c");
+			paigutaJoon(document.querySelectorAll("[data-id="+idd[1]+"]")[0],document.querySelectorAll("[data-id="+idd[0]+"]")[0]);
 
-		};*/
+
+		};
 		newX = elmnt.offsetLeft - pos1;
 		newY = elmnt.offsetTop - pos2;
 
@@ -122,7 +119,7 @@ window.addEventListener("load", function(){
 					if (sisendid[esimene.getAttribute("data-id")]){
 
 
-						var uhendused=document.querySelectorAll("[data-id="+esimene.getAttribute("data-id")+"c"+teine.getAttribute("data-id")+"]")
+						var uhendused=document.querySelectorAll("[data-id="+esimene.getAttribute("data-id")+"c"+teine.getAttribute("data-id")+"]");
 
 						for(var i=0;i<uhendused.length;i++){
 							uhendused[i].style.display="none";
@@ -207,7 +204,6 @@ function paigutaJoon(lopp,algus){
 		div.style.left=(x2+32).toString()+"px";
 		div.style.width=(x1-x2-32).toString()+"px";
 	};
-	makeDragable(div);
 }
 
 function paigutaElement(index, type, elem, parent){
