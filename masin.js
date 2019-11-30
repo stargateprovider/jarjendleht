@@ -187,26 +187,27 @@ function paigutaJoon(lopp,algus){
 	connect[algus.getAttribute("data-id")].add(div.getAttribute("data-id"));
 	div.style.position="absolute";
 	if (y1>=y2){
-		div.style.borderTop="1px double black";
+		div.style.borderTop="1px dashed black";
 		div.style.top=(y2+16).toString()+"px";
 		div.style.height=(y1-y2).toString()+"px";
 
 	};
 	if(y2>y1){
-		div.style.borderBottom="1px solid black";
+		div.style.borderBottom="1px dashed black";
 		div.style.top=(y1).toString()+"px";
 		div.style.height=(y2-y1+16).toString()+"px";
 	};
 	if (x2>=x1){
-		div.style.borderLeft="1px solid black";
+		div.style.borderLeft="1px dashed black";
 		div.style.left=(x1+32).toString()+"px";
 		div.style.width=(x2-x1-32).toString()+"px";
 	};
 	if (x1>x2){
-		div.style.borderRight="1px solid black";
+		div.style.borderRight="1px dashed black";
 		div.style.left=(x2+32).toString()+"px";
 		div.style.width=(x1-x2-32).toString()+"px";
 	};
+	div.style.pointerEvents="none";
 }
 
 function paigutaElement(index, type, elem, parent){
