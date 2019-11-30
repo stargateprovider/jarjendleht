@@ -26,14 +26,15 @@ function makeDragable(elmnt) {
 		pos3 = e.clientX;
 		pos4 = e.clientY;
 		// set the element's new position:
-		/*var uhendused=connect[elmnt.getAttribute("data-id")];
-		for (var i=-1;i<uhendused.lenght;i++){
-			console.log("j");
-			  if (elmnt.style.left+32==uhendused[i].style.left){
-					uhendused[i].style.left=(parseInt(uhendused[i].style.left)-pos1)+"px";
-				};
+		var uhendused=connect[elmnt.getAttribute("data-id")];
+		for (let u of uhendused.entries()){
+			var a=document.querySelectorAll("[data-id="+u[0]+"]")[0];
+			a.parentNode.removeChild(a);
+			var idd=u[0].split("c");
+			paigutaJoon(document.querySelectorAll("[data-id="+idd[1]+"]")[0],document.querySelectorAll("[data-id="+idd[0]+"]")[0]);
 
-		};*/
+
+		};
 		newX = elmnt.offsetLeft - pos1;
 		newY = elmnt.offsetTop - pos2;
 
@@ -114,10 +115,18 @@ window.addEventListener("load", function(){
 				let onLoogikaElemendid = esimene.className.includes("loogikaelement") && teine.className.includes("loogikaelement");
 				let poleValjund = esimene != teine && teine.getAttribute("data-type") != "valjund";
 
-				if (onLoogikaElemendid && poleValjund){					
+				if (onLoogikaElemendid && poleValjund){
 					sisendid[esimene.getAttribute("data-id")].delete(teine.getAttribute("data-id"));
 					if (sisendid[esimene.getAttribute("data-id")]){
-						//kustutaJoon(esimene,teine);
+
+
+						var uhendused=document.querySelectorAll("[data-id="+esimene.getAttribute("data-id")+"c"+teine.getAttribute("data-id")+"]");
+
+						for(var i=0;i<uhendused.length;i++){
+							uhendused[i].parentNode.removeChild(uhendused[i]);
+							connect[esimene.getAttribute("data-id")].delete(esimene.getAttribute("data-id")+"c"+teine.getAttribute("data-id"));
+							connect[teine.getAttribute("data-id")].delete(esimene.getAttribute("data-id")+"c"+teine.getAttribute("data-id"));
+						};
 						teine.style.boxShadow="";
 					}
 					this.removeEventListener("click", uhendalahti2);
@@ -178,27 +187,27 @@ function paigutaJoon(lopp,algus){
 	connect[algus.getAttribute("data-id")].add(div.getAttribute("data-id"));
 	div.style.position="absolute";
 	if (y1>=y2){
-		div.style.borderTop="1px double black";
+		div.style.borderTop="1px dashed black";
 		div.style.top=(y2+16).toString()+"px";
 		div.style.height=(y1-y2).toString()+"px";
 
 	};
 	if(y2>y1){
-		div.style.borderBottom="1px solid black";
+		div.style.borderBottom="1px dashed black";
 		div.style.top=(y1).toString()+"px";
 		div.style.height=(y2-y1+16).toString()+"px";
 	};
 	if (x2>=x1){
-		div.style.borderLeft="1px solid black";
+		div.style.borderLeft="1px dashed black";
 		div.style.left=(x1+32).toString()+"px";
 		div.style.width=(x2-x1-32).toString()+"px";
 	};
 	if (x1>x2){
-		div.style.borderRight="1px solid black";
+		div.style.borderRight="1px dashed black";
 		div.style.left=(x2+32).toString()+"px";
 		div.style.width=(x1-x2-32).toString()+"px";
 	};
-	makeDragable(div);
+	div.style.pointerEvents="none";
 }
 
 function paigutaElement(index, type, elem, parent){
