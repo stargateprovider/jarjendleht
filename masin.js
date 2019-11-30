@@ -133,26 +133,27 @@ function paigutaJoon(lopp,algus){
 	var y2=parseInt(lopp.style.top);
 	var canvas = document.getElementById("canvas");
 	var div = canvas.appendChild(document.createElement("div"));
+	div.style.position="absolute";
 	if (y1>=y2){
 		div.style.borderTop="1px solid black";
-		div.style.top=y1.toString()+"px";
+		div.style.top=(y2+16).toString()+"px";
 		div.style.height=(y1-y2).toString()+"px";
 
 	};
 	if(y2>y1){
 		div.style.borderBottom="1px solid black";
-		div.style.top=y1.toString()+"px";
-		div.style.height=(y2-y1).toString()+"px";
+		div.style.top=(y1).toString()+"px";
+		div.style.height=(y2-y1+16).toString()+"px";
 	};
 	if (x2>=x1){
 		div.style.borderLeft="1px solid black";
-		div.style.left=x1.toString()+"px";
-		div.style.width=(x2-x1).toString()+"px";
+		div.style.left=(x1+32).toString()+"px";
+		div.style.width=(x2-x1-32).toString()+"px";
 	};
 	if (x1>x2){
 		div.style.borderRight="1px solid black";
-		div.style.left=x2.toString()+"px";
-		div.style.width=(x1-x2).toString()+"px";
+		div.style.left=(x2+32).toString()+"px";
+		div.style.width=(x1-x2-32).toString()+"px";
 	};
 	console.log(div)
 }
