@@ -1,6 +1,6 @@
 Pane oma nimi ette, kui tegeled asjaga. Kui tehtud, kustuta rida või kirjuta "+" ("-" asemel).
 
-- Elementide ühendamine (graafiliselt)
+- Uku:Elementide ühendamine (graafiliselt)
 + Kevin: Elementide lisamine sõnastikku
 - AND, NAND, NOR, XOR, NOT elementide lisamine
 + Kevin: Lisada sisendelement ja väljundelement ahelasse
