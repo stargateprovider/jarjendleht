@@ -115,12 +115,8 @@ window.addEventListener("load", function(){
 		makeDragable(loogikaElemendid[i]);
 	}
 
-<<<<<<< HEAD
 	var b=document.getElementById("kaivita");
 	b.onclick = leiaValjund;
-=======
-	document.getElementById("kaivita").onclick = leiaValjund;
->>>>>>> 8e94b6950c355338033cbacd3ee702095c324787
 	var a=document.getElementById("klaveritegija");
 	a.onclick=lisaSisend;
 
