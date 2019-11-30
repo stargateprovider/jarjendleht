@@ -115,7 +115,8 @@ window.addEventListener("load", function(){
 		makeDragable(loogikaElemendid[i]);
 	}
 
-	//document.getElementById("kaivita").onclick = leiaValjund;
+	var b=document.getElementById("kaivita");
+	b.onclick = leiaValjund;
 	var a=document.getElementById("klaveritegija");
 	a.onclick=lisaSisend;
 
@@ -193,4 +194,23 @@ function lisaSisend(){
 	var div = canvas.appendChild(document.createElement("div"));
 	div.textContent = "IN" + index;
 	paigutaElement(index, div, canvas);
+}
+function leiaValjund(event,a="valjund"){
+	var inputs=Array.from(sisendid[a]);
+	//alert(a);
+	if(a=="sisend" || a=="sisend1"){
+		return 1;
+	}
+	let results=[];
+	inputs.forEach(function (item, index) {
+		results.push(leiaValjund(undefined, item))
+	});
+	var summa=0;
+	results.forEach(function (item, index){
+		summa+=item;
+	});
+	alert(summa);
+	//if(document.getElementById(a).getAttribute("data-type") == "and"){
+	//	return
+	//}
 }
