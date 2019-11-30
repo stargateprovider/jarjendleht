@@ -269,7 +269,6 @@ function leiaValjund(event,a="valjund"){
 				tulemus=0;
 			}
 		});
-		console.log(tulemus);
 		return tulemus;
 	}
 	else if(document.querySelector("[data-id='"+a+"']").getAttribute("data-type") == "or"){
@@ -279,8 +278,25 @@ function leiaValjund(event,a="valjund"){
 				tulemus=1;
 			}
 		});
-		console.log(tulemus);
 		return tulemus;
+	}
+	else if(document.querySelector("[data-id='"+a+"']").getAttribute("data-type") == "nand"){
+		var tulemus=0;
+		results.forEach(function (item, index) {
+			if(item==0){
+				tulemus=1;
+			}
+		});
+		return tulemus;		
+	}
+	else if(document.querySelector("[data-id='"+a+"']").getAttribute("data-type") == "xor"){
+		if(results[0]==results[1]){
+			return 0;
+		}
+		else{
+			return 1;
+		}
+		return tulemus;		
 	}
 	else if(document.querySelector("[data-id='"+a+"']").getAttribute("data-type") == "valjund"){
 		document.getElementById("valjund").innerHTML=results;		
