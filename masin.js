@@ -273,7 +273,7 @@ function lisaSisend(){
 
 function leiaValjund(event,a="valjund"){
 	var inputs=Array.from(sisendid[a]);
-	let results=[];
+	var results=[];
 	inputs.forEach(function (item, index) {
 		results.push(leiaValjund(undefined, item))
 	});
