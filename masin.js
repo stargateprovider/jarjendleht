@@ -222,13 +222,13 @@ function paigutaJoon(lopp,algus){
 	};
 	if (x2>=x1){
 		div.style.borderLeft="1px dashed black";
-		div.style.left=(x1+32).toString()+"px";
-		div.style.width=(x2-x1-32).toString()+"px";
+		div.style.left=(x1+48).toString()+"px";
+		div.style.width=(x2-x1-48).toString()+"px";
 	};
 	if (x1>x2){
 		div.style.borderRight="1px dashed black";
-		div.style.left=(x2+32).toString()+"px";
-		div.style.width=(x1-x2-32).toString()+"px";
+		div.style.left=(x2+48).toString()+"px";
+		div.style.width=(x1-x2-48).toString()+"px";
 	};
 	div.style.pointerEvents="none";
 }
@@ -237,7 +237,7 @@ function paigutaElement(index, type, elem, parent){
 	elem.setAttribute("data-id", type+index);
 	elem.setAttribute("data-type", type);
 	elem.className = "loogikaelement";
-	let posy = 170 + index*32;
+	let posy = 170 + index*48;
 	elem.style.top = posy.toString() + "px";
 	if (posy > parent.offsetHeight){
 		parent.style.height = elem.style.top;
