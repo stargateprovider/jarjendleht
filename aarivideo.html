@@ -1,10 +1,13 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="et">
 <head>
   <meta charset="utf-8">
   <title>Videoloengud</title>
   <link rel ="stylesheet" type="text/css" href="main.css">
   <link rel ="stylesheet" type="text/css" href="aarivideo.css">
+  <script src="aarivideo.js"></script>
+
+  <script src="main.js"></script>
 
 </head>
 <body>
@@ -22,12 +25,23 @@
         Esimene loeng
       </h2>
       <iframe src="https://www.uttv.ee/embed?id=20779" ></iframe>
+      <br>
+
+      <p id=kusimus>Kas eelistad Toomast või Urmast?
+        <br>
+        <input type="text" id="sisend" placeholder="Toomast">
+        <button id="nupp1">Vasta!</button>
+      </p>
+
     </div>
     <div class="column">
       <h2>
         Teine loeng
       </h2>
       <iframe src="https://www.uttv.ee/embed?id=20776" ></iframe>
+      <br>
+
+      <button id ="nupp">Muuda taustavärvi!</button>
     </div>
   </div>
 </body>

@@ -170,9 +170,9 @@ window.addEventListener("load", function(){
 	var a=document.getElementById("klaveritegija");
 	a.onclick=lisaSisend;
 
-	var emmed=document.getElementsByClassName("emme");
-	for (var i=0; i<emmed.length; i++){
-		emmed[i].addEventListener("click", e=>{
+	var loogikaelemendid=document.getElementsByClassName("loogikaelem");
+	for (var i=0; i<loogikaelemendid.length; i++){
+		loogikaelemendid[i].addEventListener("click", e=>{
 			lisaElement(e.target.parentNode.getAttribute('data-id'));
 		});
 	}
@@ -281,45 +281,61 @@ function leiaValjund(event,a="valjund"){
 		return document.querySelector("[name='"+a+"']").value;
 	}
 	else if(document.querySelector("[data-id='"+a+"']").getAttribute("data-type") == "neg"){
-		return 1-results[0];
+		tulemus="";
+		for (var i = 0; i < results[0].length; i++) {
+			tulemus=tulemus.concat(1-results[0].charAt(i));
+		}
+		return tulemus;
 	}
 	else if(document.querySelector("[data-id='"+a+"']").getAttribute("data-type") == "and"){
-		var tulemus=1;
-		results.forEach(function (item, index) {
-			if(item==0){
-				tulemus=0;
+		tulemus="";
+		for (var i = 0; i < results[0].length; i++) {
+			if(results[0].charAt(i)=="1" && results[1].charAt(i)=="1"){
+				tulemus=tulemus.concat(1);
 			}
-		});
+			else{
+				tulemus=tulemus.concat(0);
+			}
+		}
 		return tulemus;
 	}
 	else if(document.querySelector("[data-id='"+a+"']").getAttribute("data-type") == "or"){
-		var tulemus=0;
-		results.forEach(function (item, index) {
-			if(item==1){
-				tulemus=1;
+		tulemus="";
+		for (var i = 0; i < results[0].length; i++) {
+			if(results[0].charAt(i)=="1" || results[1].charAt(i)=="1"){
+				tulemus=tulemus.concat(1);
 			}
-		});
+			else{
+				tulemus=tulemus.concat(0);
+			}
+		}
 		return tulemus;
 	}
 	else if(document.querySelector("[data-id='"+a+"']").getAttribute("data-type") == "nand"){
-		var tulemus=0;
-		results.forEach(function (item, index) {
-			if(item==0){
-				tulemus=1;
+		tulemus="";
+		for (var i = 0; i < results[0].length; i++) {
+			if(results[0].charAt(i)=="0" || results[1].charAt(i)=="0"){
+				tulemus=tulemus.concat(1);
 			}
-		});
-		return tulemus;		
+			else{
+				tulemus=tulemus.concat(0);
+			}
+		}
+		return tulemus;
 	}
 	else if(document.querySelector("[data-id='"+a+"']").getAttribute("data-type") == "xor"){
-		if(results[0]==results[1]){
-			return 0;
+		tulemus="";
+		for (var i = 0; i < results[0].length; i++) {
+			if(results[0].charAt(i)==results[1].charAt(i)){
+				tulemus=tulemus.concat(0);
+			}
+			else{
+				tulemus=tulemus.concat(1);
+			}
 		}
-		else{
-			return 1;
-		}
-		return tulemus;		
+		return tulemus;
 	}
 	else if(document.querySelector("[data-id='"+a+"']").getAttribute("data-type") == "valjund"){
-		document.getElementById("valjund").innerHTML=results;		
+		document.getElementById("valjund").innerHTML=results;
 	}
 }

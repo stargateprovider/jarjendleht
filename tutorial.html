@@ -5,13 +5,15 @@
     <title>RTFM, dude.</title>
     <link rel ="stylesheet" href="main.css">
     <link rel ="stylesheet" href="tutorial.css">
+
+  	<script src="main.js"></script>
 </head>
 <body>
-    <nav>
-        <a href="index.html">Kodu</a>
-        <a href="aarivideo.html">Teemakohane Videoloeng</a>
-        <a href="tutorial.html">Tutorial</a>
-    </nav>
+	<nav>
+		<a href="index.html">Kodu</a>
+		<a href="aarivideo.html">Teemakohane Videoloeng</a>
+		<a href="tutorial.html">Tutorial</a>
+	</nav>
     <h1>Järjendloogika mootori juhis</h1>
 	<div>
 	    <p>Järjendloogika leht võimaldab ehitada loogikatehetest koosnevaid ahelaid. Kui loogikaahel on valmis tehtud, saab kasutaja anda sisendelementide väärtusteks bitijadasid. Seejärel leiab leht ehitatud loogikaskeemile ja sisenditele vastava bitijada väärtuse ja tagastab selle kasutajale.</p>
@@ -30,15 +32,21 @@
     </div>
     <div class="tekst-pildiga">
         <div class="tekst">
-            <p>Kui loogikaahelaks vajalikud loogikaväravad ja sisendid on lisatud, saab hakata ahelat ennast koostama. Selleks peab õiged loogikaväravad ja sisendid omavahel ühendada. Et seda teha, tulev teha paremklikk loogikaväraval, valida avanenud menüüst "Vali sisend" ning seejärel teha klikk väraval või sisendil, mis selle värava sisendiks peab olema.</p>
+            <p>Kui loogikaahelaks vajalikud loogikaväravad ja sisendid on lisatud, saab hakata ahelat ennast koostama. Selleks peab õiged loogikaväravad ja sisendid omavahel ühendada. Et seda teha, tulev teha paremklikk loogikaväraval, valida avanenud menüüst "Vali sisend" ning seejärel teha klikk väraval või sisendil, mis selle värava sisendiks peab olema. Kui loogikaahel on koostatud, jääb vaid üle sisendid väärtustada (binaaris) ning vajutada nupule "Käivita!, misjärel tulemus kuvatakse tekstiribade all".</p>
         </div>
         <div class="pilt"><img src="./pildid/uhendamine.png" alt="Loogikaväravate ühendamine."></div>
     </div>
+    <div class="tekst">
+        <p>Viimaseks elemendiks ahelas peab olema "OUT" element. Kui "OUT" elemendiga on ühendatud rohkem, kui üks teine element, kuvatakse kõigile neile vastavad tehete tulemused listina, alustades esimesena ühendatud tehtest.</p>
+    </div>
+    <div><img src="./pildid/tutorial.png" alt="Loogikaväravate ühendamine."></div>
     <div class="tekst-pildiga">
         <div class="tekst">
             <p>Valides kontekstimenüüst valiku "Eemalda element" peab kasutaja enne veenduma, et element teiste elementidega ühendatud pole seda ringi lohistades. Kui peaks selguma, et element on veel ühendatud, peab ilmtingimata need ühendused eemaldama kontekstimenüü funktsionaalsusega "Eemalda ühendus" avades menüü kustutatava elemendi kohal ning seejärel klõpsates teisele ühendatud elemendile.</p>
         </div>
         <div class="pilt"></div>
     </div>
+    <br>
+    <button id ="nupp">Muuda taustavärvi!</button>
 </body>
 </html>

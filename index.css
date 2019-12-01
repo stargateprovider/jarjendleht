@@ -33,7 +33,7 @@ input[type="text"] {
 	width: 75%;
 }
 
-.emme {
+.loogikaelem {
 	width: min-content;
 	display: flex;
 	flex-wrap: nowrap;
