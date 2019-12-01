@@ -26,19 +26,14 @@ function makeDragable(elmnt) {
 		pos3 = e.clientX;
 		pos4 = e.clientY;
 		// set the element's new position:
-		var uhendused=connect[elmnt.getAttribute("data-id")];
-		for (let u of uhendused.entries()){
-			var a=document.querySelectorAll("[data-id="+u[0]+"]")[0];
-			a.parentNode.removeChild(a);
-			var idd=u[0].split("c");
-			paigutaJoon(document.querySelectorAll("[data-id="+idd[1]+"]")[0],document.querySelectorAll("[data-id="+idd[0]+"]")[0]);
-
-
+		var uhendused=Array.from(connect[elmnt.getAttribute("data-id")]);
+		for (let u=0; u<uhendused.length; u++){
+			var idd = uhendused[u].split("c");
+			paigutaJoon(document.querySelector("[data-id='"+idd[1]+"']"),
+						document.querySelector("[data-id='"+idd[0]+"']"));
 		};
 		newX = elmnt.offsetLeft - pos1;
 		newY = elmnt.offsetTop - pos2;
-
-
 
 		parentSize = elmnt.parentNode.getBoundingClientRect();
 		elemSize = elmnt.getBoundingClientRect();
@@ -100,6 +95,8 @@ window.addEventListener("load", function(){
 				}
 			}
 			this.removeEventListener("click", uhenda);
+			document.getElementById("btn-input-remove").removeEventListener("click", uhendalahti);
+			document.getElementById("btn-remove").removeEventListener("click", kustuta);
 			document.addEventListener("click", uhenda2);
 		};
 		document.getElementById("btn-input-add").addEventListener("click", uhenda);
@@ -119,20 +116,20 @@ window.addEventListener("load", function(){
 					sisendid[esimene.getAttribute("data-id")].delete(teine.getAttribute("data-id"));
 					if (sisendid[esimene.getAttribute("data-id")]){
 
-
-						var uhendused=document.querySelectorAll("[data-id="+esimene.getAttribute("data-id")+"c"+teine.getAttribute("data-id")+"]");
-
+						var uhendusId = esimene.getAttribute("data-id")+"c"+teine.getAttribute("data-id");
+						var uhendused = document.querySelectorAll("[data-id='"+uhendusId+"']");
 						for(var i=0;i<uhendused.length;i++){
 							uhendused[i].parentNode.removeChild(uhendused[i]);
-							connect[esimene.getAttribute("data-id")].delete(esimene.getAttribute("data-id")+"c"+teine.getAttribute("data-id"));
-							connect[teine.getAttribute("data-id")].delete(esimene.getAttribute("data-id")+"c"+teine.getAttribute("data-id"));
+							connect[esimene.getAttribute("data-id")].delete(uhendusId);
+							connect[teine.getAttribute("data-id")].delete(uhendusId);
 						};
-						teine.style.boxShadow="";
 					}
 					this.removeEventListener("click", uhendalahti2);
 				}
 			}
 			this.removeEventListener("click", uhendalahti);
+			document.getElementById("btn-input-add").removeEventListener("click", uhenda);
+			document.getElementById("btn-remove").removeEventListener("click", kustuta);
 			document.addEventListener("click", uhendalahti2);
 		};
 		document.getElementById("btn-input-remove").addEventListener("click", uhendalahti);
@@ -140,15 +137,20 @@ window.addEventListener("load", function(){
 		// Elementide kustutamine
 		var kustuta = function(event){
 			contextmenu.style.display = "none";
-			dataId = esimene.getAttribute("data-id");
+			var dataId = esimene.getAttribute("data-id");
 
 			if (esimene.className.includes("loogikaelement") && dataId != "valjund"){
-				esimene.parentNode.removeChild(esimene);
 				delete sisendid[dataId];
-				for (var i=0; i<sisendid.length; i++){
-					sisendid.delete(dataId);
+				delete connect[dataId];
+				for (var key in sisendid){
+					sisendid[key].delete(dataId);
+					kustutaJoon(dataId, key);
+					kustutaJoon(key, dataId);
 				}
 				this.removeEventListener("click", kustuta);
+				document.getElementById("btn-input-add").removeEventListener("click", uhenda);
+				document.getElementById("btn-input-remove").removeEventListener("click", uhendalahti);
+				esimene.parentNode.removeChild(esimene);
 			}
 		};
 		document.getElementById("btn-remove").addEventListener("click", kustuta);
@@ -175,14 +177,35 @@ window.addEventListener("load", function(){
 		});
 	}
 });
+
+function kustutaJoon(loppId, algusId){
+	var id = algusId+"c"+loppId;
+	var joon = document.querySelector("[data-id='"+id+"']");
+	if (joon){
+		joon.parentNode.removeChild(joon);
+	}
+	for (var key in connect){
+		var jooneIdd = Array.from(connect[key]);
+		for (var i=0; i<jooneIdd.length; i++){
+			if (jooneIdd[i] == id){
+				connect[key].delete(jooneIdd[i]);
+			}
+		}
+	}
+}
+
 function paigutaJoon(lopp,algus){
 	var x1=parseInt(algus.style.left);
 	var x2=parseInt(lopp.style.left);
 	var y1=parseInt(algus.style.top);
 	var y2=parseInt(lopp.style.top);
+	var id = algus.getAttribute("data-id")+"c"+lopp.getAttribute("data-id");
+	kustutaJoon(algus.getAttribute("data-id"), lopp.getAttribute("data-id"));
+	kustutaJoon(lopp.getAttribute("data-id"), algus.getAttribute("data-id"));
+
 	var canvas = document.getElementById("canvas");
 	var div = canvas.appendChild(document.createElement("div"));
-	div.setAttribute("data-id", algus.getAttribute("data-id")+"c"+lopp.getAttribute("data-id"));
+	div.setAttribute("data-id", id);
 	connect[lopp.getAttribute("data-id")].add(div.getAttribute("data-id"));
 	connect[algus.getAttribute("data-id")].add(div.getAttribute("data-id"));
 	div.style.position="absolute";
@@ -220,9 +243,7 @@ function paigutaElement(index, type, elem, parent){
 		parent.style.height = elem.style.top;
 	}
 	makeDragable(elem);
-	connect[elem.getAttribute("data-id")]=new Set();
-
-
+	connect[elem.getAttribute("data-id")] = new Set();
 	sisendid[elem.getAttribute("data-id")] = new Set();
 }
 
@@ -252,7 +273,7 @@ function lisaSisend(){
 
 function leiaValjund(event,a="valjund"){
 	var inputs=Array.from(sisendid[a]);
-	let results=[];
+	var results=[];
 	inputs.forEach(function (item, index) {
 		results.push(leiaValjund(undefined, item))
 	});
