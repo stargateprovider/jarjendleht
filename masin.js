@@ -168,9 +168,9 @@ window.addEventListener("load", function(){
 	var a=document.getElementById("klaveritegija");
 	a.onclick=lisaSisend;
 
-	var emmed=document.getElementsByClassName("emme");
-	for (var i=0; i<emmed.length; i++){
-		emmed[i].addEventListener("click", e=>{
+	var loogikaelemendid=document.getElementsByClassName("loogikaelem");
+	for (var i=0; i<loogikaelemendid.length; i++){
+		loogikaelemendid[i].addEventListener("click", e=>{
 			lisaElement(e.target.parentNode.getAttribute('data-id'));
 		});
 	}

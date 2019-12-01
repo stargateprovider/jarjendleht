@@ -1,1 +1,1 @@
-# jarjendleht
+[Loogikaahela veebileht](https://github.com/stargateprovider/jarjendleht/wiki/Sissejuhatus-erialasse-veebilehe-projekt)
