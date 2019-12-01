@@ -20,20 +20,6 @@ h1{
 	height:100px;
 	box-shadow: 0px 0px 0px #000000;
 }
-/*
-table{
-	min-width: 100%;
-	border: 10px solid green;
-	vertical-align: top;
-}
-
-tr:hover {
-	background-color: #FF8888;
-}
-
-th{
-	color: #00F;
-}*/
 
 .column {
 	float: left;
@@ -84,6 +70,6 @@ nav>a:hover{
 		background-color: black;
 	}
 	to {
-		background-color: rgb(0, 132, 255);
+		background-color: rgb(255, 240, 240);
 	}
   }
