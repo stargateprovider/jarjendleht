@@ -280,7 +280,76 @@ function lisaSisend(){
 	paigutaElement(index, "sisend", div, canvas);
 }
 
-function leiaValjund(event,id="valjund"){
+function leiaValjund(event,a="valjund"){
+	var inputs=Array.from(sisendid[a]);
+	var results=[];
+	inputs.forEach(function (item, index) {
+		results.push(leiaValjund(undefined, item))
+	});
+	if(document.querySelector("[data-id='"+a+"']").getAttribute("data-type") == "sisend"){
+		return document.querySelector("[name='"+a+"']").value;
+	}
+	else if(document.querySelector("[data-id='"+a+"']").getAttribute("data-type") == "neg"){
+		tulemus="";
+		for (var i = 0; i < results[0].length; i++) {
+			tulemus=tulemus.concat(1-results[0].charAt(i));
+		}
+		return tulemus;
+	}
+	else if(document.querySelector("[data-id='"+a+"']").getAttribute("data-type") == "and"){
+		tulemus="";
+		for (var i = 0; i < results[0].length; i++) {
+			if(results[0].charAt(i)=="1" && results[1].charAt(i)=="1"){
+				tulemus=tulemus.concat(1);
+			}
+			else{
+				tulemus=tulemus.concat(0);
+			}
+		}
+		return tulemus;
+	}
+	else if(document.querySelector("[data-id='"+a+"']").getAttribute("data-type") == "or"){
+		tulemus="";
+		for (var i = 0; i < results[0].length; i++) {
+			if(results[0].charAt(i)=="1" || results[1].charAt(i)=="1"){
+				tulemus=tulemus.concat(1);
+			}
+			else{
+				tulemus=tulemus.concat(0);
+			}
+		}
+		return tulemus;
+	}
+	else if(document.querySelector("[data-id='"+a+"']").getAttribute("data-type") == "nand"){
+		tulemus="";
+		for (var i = 0; i < results[0].length; i++) {
+			if(results[0].charAt(i)=="0" || results[1].charAt(i)=="0"){
+				tulemus=tulemus.concat(1);
+			}
+			else{
+				tulemus=tulemus.concat(0);
+			}
+		}
+		return tulemus;
+	}
+	else if(document.querySelector("[data-id='"+a+"']").getAttribute("data-type") == "xor"){
+		tulemus="";
+		for (var i = 0; i < results[0].length; i++) {
+			if(results[0].charAt(i)==results[1].charAt(i)){
+				tulemus=tulemus.concat(0);
+			}
+			else{
+				tulemus=tulemus.concat(1);
+			}
+		}
+		return tulemus;
+	}
+	else if(document.querySelector("[data-id='"+a+"']").getAttribute("data-type") == "valjund"){
+		document.getElementById("valjund").innerHTML=results;
+	}
+}
+
+function leiaValjundNew(event,id="valjund"){
 	// Töötab jätkuvalt kõige paremini 1-2 sisendiga
 	var elem = document.querySelector("[data-id='"+id+"']");
 	var elemType = elem.getAttribute("data-type");
