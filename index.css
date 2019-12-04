@@ -31,6 +31,8 @@ table {
 
 input[type="text"] {
 	width: 75%;
+	font-family: Courier New,Courier,Lucida Sans Typewriter,Lucida Typewriter,monospace;
+	font-size: 16px;
 }
 
 .loogikaelem {
@@ -63,4 +65,8 @@ input[type="text"] {
 ol {
 	margin: 0;
 	padding-left: 20px;
+}
+
+span {
+	font-family: Courier New,Courier,Lucida Sans Typewriter,Lucida Typewriter,monospace;
 }
