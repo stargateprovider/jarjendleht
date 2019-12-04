@@ -32,24 +32,27 @@ function makeDragable(elmnt) {
 			paigutaJoon(document.querySelector("[data-id='"+idd[1]+"']"),
 						document.querySelector("[data-id='"+idd[0]+"']"));
 		};
-		newX = elmnt.offsetLeft - pos1;
-		newY = elmnt.offsetTop - pos2;
+		newX = elmnt.scrollLeft + elmnt.offsetLeft - pos1;
+		newY = elmnt.scrollTop + elmnt.offsetTop - pos2;
 
 		parentSize = elmnt.parentNode.getBoundingClientRect();
 		elemSize = elmnt.getBoundingClientRect();
+		scrollX = document.documentElement.scrollLeft || document.body.scrollLeft;
+		scrollY = document.documentElement.scrollTop || document.body.scrollTop;
+
 		// Kui raamist väljas:
-		if (newX < parentSize.left){
-			elmnt.style.left = parentSize.left + "px";
-		}else if (newX + elemSize.width > parentSize.right){
-			elmnt.style.left = parentSize.right - elemSize.width + "px";
+		if (newX < parentSize.left + scrollX){
+			elmnt.style.left = parentSize.left + scrollX + "px";
+		}else if (newX + elemSize.width > parentSize.right + scrollX){
+			elmnt.style.left = parentSize.right - elemSize.width + scrollX + "px";
 		}else{
 			elmnt.style.left = newX + "px";
 		}
 
-		if (newY < parentSize.top){
-			elmnt.style.top = parentSize.top + "px";
-		}else if (newY + elemSize.height > parentSize.bottom){
-			elmnt.style.top = parentSize.bottom - elemSize.height + "px";
+		if (newY < parentSize.top + scrollY){
+			elmnt.style.top = parentSize.top + scrollY + "px";
+		}else if (newY + elemSize.height > parentSize.bottom + scrollY){
+			elmnt.style.top = parentSize.bottom - elemSize.height + scrollY + "px";
 		}else{
 			elmnt.style.top = newY + "px";
 		}
@@ -74,8 +77,10 @@ window.addEventListener("load", function(){
 		e.preventDefault();
 		var contextmenu = document.getElementById("menu");
 		contextmenu.style.display = "block";
-		contextmenu.style.left = x.toString() + "px";
-		contextmenu.style.top = y.toString() + "px";
+		scrollX = document.documentElement.scrollLeft || document.body.scrollLeft;
+		scrollY = document.documentElement.scrollTop || document.body.scrollTop;
+		contextmenu.style.left = (x+scrollX).toString() + "px";
+		contextmenu.style.top = (y+scrollY).toString() + "px";
 
 		// Elementide ühendamine
 		var uhenda = function(event){
@@ -139,13 +144,17 @@ window.addEventListener("load", function(){
 			contextmenu.style.display = "none";
 			var dataId = esimene.getAttribute("data-id");
 
-			if (esimene.className.includes("loogikaelement") && dataId != "valjund"){
+			if (esimene.className.includes("loogikaelement") && dataId != "valjund" && dataId != "sisend0"){
 				delete sisendid[dataId];
 				delete connect[dataId];
 				for (var key in sisendid){
 					sisendid[key].delete(dataId);
 					kustutaJoon(dataId, key);
 					kustutaJoon(key, dataId);
+				}
+				if (esimene.getAttribute("data-type") == "sisend"){
+					let input = document.querySelector("[name='"+esimene.getAttribute("data-id")+"']").parentNode;
+					input.parentNode.removeChild(input);
 				}
 				this.removeEventListener("click", kustuta);
 				document.getElementById("btn-input-add").removeEventListener("click", uhenda);
@@ -271,71 +280,54 @@ function lisaSisend(){
 	paigutaElement(index, "sisend", div, canvas);
 }
 
-function leiaValjund(event,a="valjund"){
-	var inputs=Array.from(sisendid[a]);
-	var results=[];
-	inputs.forEach(function (item, index) {
-		results.push(leiaValjund(undefined, item))
-	});
-	if(document.querySelector("[data-id='"+a+"']").getAttribute("data-type") == "sisend"){
-		return document.querySelector("[name='"+a+"']").value;
+function leiaValjund(event,id="valjund"){
+	// Töötab jätkuvalt kõige paremini 1-2 sisendiga
+	var elem = document.querySelector("[data-id='"+id+"']");
+	var elemType = elem.getAttribute("data-type");
+
+	var inputs = Array.from(sisendid[id]);
+	var results = [];
+	for (var i=0; i < inputs.length; i++) {
+		results.push(leiaValjund(undefined, inputs[i]));
 	}
-	else if(document.querySelector("[data-id='"+a+"']").getAttribute("data-type") == "neg"){
-		tulemus="";
+	tulemus = results[0];
+
+	if(elemType == "sisend"){
+		return document.querySelector("[name='"+id+"']").value;
+	}
+	else if(elemType == "neg"){
+		tulemus = "";
 		for (var i = 0; i < results[0].length; i++) {
-			tulemus=tulemus.concat(1-results[0].charAt(i));
+			tulemus += 1-results[0].charAt(i);
 		}
-		return tulemus;
 	}
-	else if(document.querySelector("[data-id='"+a+"']").getAttribute("data-type") == "and"){
-		tulemus="";
-		for (var i = 0; i < results[0].length; i++) {
-			if(results[0].charAt(i)=="1" && results[1].charAt(i)=="1"){
-				tulemus=tulemus.concat(1);
-			}
-			else{
-				tulemus=tulemus.concat(0);
-			}
+	else if(elemType == "and"){
+		for (var i = 1; i < results.length; i++) {
+			tulemus = (parseInt(results[i],2) & parseInt(tulemus,2)).toString(2);
 		}
-		return tulemus;
 	}
-	else if(document.querySelector("[data-id='"+a+"']").getAttribute("data-type") == "or"){
-		tulemus="";
-		for (var i = 0; i < results[0].length; i++) {
-			if(results[0].charAt(i)=="1" || results[1].charAt(i)=="1"){
-				tulemus=tulemus.concat(1);
-			}
-			else{
-				tulemus=tulemus.concat(0);
-			}
+	else if(elemType == "or"){
+		for (var i = 1; i < results.length; i++) {
+			tulemus = (parseInt(results[i],2) | parseInt(tulemus,2)).toString(2);
 		}
-		return tulemus;
 	}
-	else if(document.querySelector("[data-id='"+a+"']").getAttribute("data-type") == "nand"){
-		tulemus="";
-		for (var i = 0; i < results[0].length; i++) {
-			if(results[0].charAt(i)=="0" || results[1].charAt(i)=="0"){
-				tulemus=tulemus.concat(1);
-			}
-			else{
-				tulemus=tulemus.concat(0);
-			}
+	else if(elemType == "nand"){
+		for (var i = 1; i < results.length; i++) {
+			tulemus = (parseInt(results[i],2) & parseInt(tulemus,2)).toString(2);
 		}
-		return tulemus;
-	}
-	else if(document.querySelector("[data-id='"+a+"']").getAttribute("data-type") == "xor"){
-		tulemus="";
-		for (var i = 0; i < results[0].length; i++) {
-			if(results[0].charAt(i)==results[1].charAt(i)){
-				tulemus=tulemus.concat(0);
-			}
-			else{
-				tulemus=tulemus.concat(1);
-			}
+		tulemus2 = "";
+		for (var i = 0; i < tulemus.length; i++) {
+			tulemus2 += 1-tulemus.charAt(i);
 		}
-		return tulemus;
+		tulemus = tulemus2;
 	}
-	else if(document.querySelector("[data-id='"+a+"']").getAttribute("data-type") == "valjund"){
-		document.getElementById("valjund").innerHTML=results;
+	else if(elemType == "xor"){
+		for (var i = 1; i < results.length; i++) {
+			tulemus = (parseInt(results[i],2) ^ parseInt(tulemus,2)).toString(2);
+		}
 	}
+	else if(elemType == "valjund"){
+		document.getElementById("valjund").innerHTML=tulemus;
+	}
+	return "0".repeat(Math.abs(results[0].length-tulemus.length)) + tulemus;
 }
